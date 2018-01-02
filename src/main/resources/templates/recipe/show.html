@@ -34,7 +34,7 @@
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
                                     <!--/*@thymesVar id="recipe" type="pl.piasecki.domain.Recipe"*/-->
-                                    <li th:each="category : ${recipe.categories}" th:text="${category.getDescription()}"> cat three</li>
+                                    <li th:each="category : ${recipe.categories}" th:text="${category.getDescription()}">cat three</li>
                                 </ul>
                             </div>
                         </div>
@@ -99,7 +99,10 @@
                                     <li th:remove="all">1 Cup of milk</li>
                                     <li th:remove="all">1 Teaspoon of chocolate</li>
                                     <!--/*@thymesVar id="recipe" type="pl.piasecki.domain.Recipe"*/-->
-                                    <li th:each="ingredient : ${recipe.ingredients}" th:text="${(ingredient.getAmount()) + ' '} + ${(ingredient.getUom().getDescription()) + ' - '} + ${ingredient.getDescription()}">1 Teaspoon of Sugar</li>
+                                    <li th:each="ingredient : ${recipe.ingredients}"
+                                        th:text="${(ingredient.getAmount()) + ' '} +
+                                        ${(ingredient.getUom().getDescription()) + ' - '} +
+                                        ${ingredient.getDescription()}">1 Teaspoon of Sugar</li>
                                 </ul>
                             </div>
                         </div>
