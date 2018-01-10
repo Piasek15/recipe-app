@@ -7,6 +7,7 @@ import pl.piasecki.commands.RecipeCommand;
 import pl.piasecki.converters.RecipeCommandToRecipe;
 import pl.piasecki.converters.RecipeToRecipeCommand;
 import pl.piasecki.domain.Recipe;
+import pl.piasecki.exceptions.NotFoundException;
 import pl.piasecki.repositories.RecipeRepository;
 
 import java.util.HashSet;
@@ -39,7 +40,8 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findById(Long l) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
         if (!recipeOptional.isPresent()){
-            throw new RuntimeException("Recipe Not Found!");
+            //throw new RuntimeException("Recipe Not Found!");
+            throw new NotFoundException("Recipe Not Found");
         }
 
         return recipeOptional.get();

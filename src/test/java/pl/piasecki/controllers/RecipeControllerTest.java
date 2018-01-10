@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.piasecki.commands.RecipeCommand;
 import pl.piasecki.domain.Recipe;
+import pl.piasecki.exceptions.NotFoundException;
 import pl.piasecki.services.RecipeService;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -49,6 +50,17 @@ public class RecipeControllerTest {
     }
 
     @Test
+    public void testGetRecipeNotFound() throws Exception{
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testGetNewRecipeForm() throws Exception{
 
         mockMvc.perform(get("/recipe/new"))
@@ -86,6 +98,7 @@ public class RecipeControllerTest {
 
     }
 
+    @Test
     public void testDeleteAction() throws Exception{
         mockMvc.perform(get("/recipe/1/delete"))
                 .andExpect(status().is3xxRedirection())
@@ -93,5 +106,7 @@ public class RecipeControllerTest {
 
         verify(recipeService, times(1)).deleteById(anyLong());
     }
+
+
 
 }
